@@ -1,4 +1,7 @@
-import Button from "./components/Button";
+import Home from "./components/Home";
+import Header from "./components/Header";
+import About from "./components/About";
+import { useState } from "react";
 
 // Home page
 // About page
@@ -7,12 +10,26 @@ import Button from "./components/Button";
 // Footer
 
 function App() {
+  // STATE
+  const [currentPage, setCurrentPage] = useState("home");
+  // currentPage = getter
+  // setCurrentPage = setter
+  // ett state för vilken sida vi ska visa home eller about
+
+  // vi ska ha en metod som definierar vad onNavigate ska göra
+  const handleNavigate = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="layout">
-      React Demo
-      <div>
-        <Button text="Click me" backgroundColor="red"></Button>
-      </div>
+      <Header title="Our React App" onNavigate={handleNavigate} />
+
+      {currentPage === "home" ? (
+        <Home />
+      ) : (
+        <About onNavigate={handleNavigate} />
+      )}
     </div>
   );
 }

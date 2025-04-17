@@ -1,6 +1,7 @@
 import Button from "./Button";
 import "../styles/header.css";
 
+// inuti {} är PROPS
 const Header = ({ title, onNavigate }) => {
   return (
     <header className="header">

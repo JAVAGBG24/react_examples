@@ -1,6 +1,9 @@
 import "../styles/button.css";
 
 const Button = ({ onClick, backgroundColor, text }) => {
+  /* console.log("Ursprungligt värde: " + text);
+  text = "NY TEXT";
+  console.log("Efter försök att ändra: " + text); */
   // vi vet att nån gång ska den här knappen
   // kunna ta emot en funktion men vilken funktion som heslt
   // det vet inte själva knappen om nu, och behöver inte veta det
