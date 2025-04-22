@@ -1,4 +1,4 @@
-import "../styles/footer.css";
+import "../../styles/footer.css";
 
 const Footer = () => {
   // vi vill visa året dynamiskt så vi slipper hårdkoda det och

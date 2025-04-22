@@ -1,6 +1,6 @@
 import Button from "./Button";
 import Footer from "./Footer";
-import "../styles/home.css";
+import "../../styles/home.css";
 
 const Home = () => {
   return (

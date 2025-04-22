@@ -1,4 +1,4 @@
-import "../styles/button.css";
+import "../../styles/button.css";
 
 const Button = ({ onClick, backgroundColor, text }) => {
   /* console.log("Ursprungligt värde: " + text);
