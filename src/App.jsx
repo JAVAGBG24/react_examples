@@ -21,6 +21,10 @@ function App() {
     setCurrentPage(page);
   };
 
+  /* function formatMoney(number) {
+    return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  } */
+
   return (
     <div className="layout">
       <Header title="Our React App" onNavigate={handleNavigate} />
