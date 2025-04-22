@@ -1,5 +1,6 @@
 import Button from "./Button";
 import "../styles/header.css";
+import { Link } from "react-router-dom";
 
 // inuti {} är PROPS
 const Header = ({ title, onNavigate }) => {
@@ -7,7 +8,22 @@ const Header = ({ title, onNavigate }) => {
     <header className="header">
       <h1>{title}</h1>
       <nav>
-        <Button
+        <Link to="/" className="link">
+          <Button text="Home" backgroundColor="green" />
+        </Link>
+
+        <Link to="/about" className="link">
+          <Button text="About" backgroundColor="blue" />
+        </Link>
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
+
+/*
+ <Button
           text="Home"
           backgroundColor="green"
           onClick={() => onNavigate("home")}
@@ -17,9 +33,4 @@ const Header = ({ title, onNavigate }) => {
           backgroundColor="blue"
           onClick={() => onNavigate("about")}
         />
-      </nav>
-    </header>
-  );
-};
-
-export default Header;
+*/

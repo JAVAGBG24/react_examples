@@ -31,3 +31,7 @@ html {
   padding: 10px;
   background-color: #e0e0e0;
 }
+
+.link {
+  text-decoration: none;
+}

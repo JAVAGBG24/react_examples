@@ -1,7 +1,9 @@
 import Home from "./components/Home";
 import Header from "./components/Header";
 import About from "./components/About";
+import Footer from "./components/Footer";
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Home page
 // About page
@@ -26,15 +28,22 @@ function App() {
   } */
 
   return (
-    <div className="layout">
-      <Header title="Our React App" onNavigate={handleNavigate} />
+    <BrowserRouter>
+      <div className="layout">
+        <Header title="Our React App" onNavigate={handleNavigate} />
 
-      {currentPage === "home" ? (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        {/* {currentPage === "home" ? (
         <Home />
       ) : (
         <About onNavigate={handleNavigate} />
-      )}
-    </div>
+      )} */}
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

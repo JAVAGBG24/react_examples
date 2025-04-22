@@ -1,6 +1,7 @@
 import Button from "./Button";
 import Footer from "./Footer";
 import "../styles/about.css";
+import { Link } from "react-router-dom";
 
 const About = ({ onNavigate }) => {
   return (
@@ -10,14 +11,11 @@ const About = ({ onNavigate }) => {
         <p>This demo shows basic React components</p>
 
         <div className="button-container">
-          <Button
-            text="Go back"
-            backgroundColor="limegreen"
-            onClick={() => onNavigate("home")}
-          />
+          <Link to="/" className="link">
+            <Button text="Go back" backgroundColor="limegreen" />
+          </Link>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
