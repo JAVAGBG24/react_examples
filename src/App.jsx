@@ -7,24 +7,28 @@ function App() {
   const [totalWealth, setTotalWealth] = useState(null);
 
   useEffect(() => {
-    fetchRandomUser();
+    fetchRandomUser(3);
   }, []);
 
-  const fetchRandomUser = async () => {
+  const fetchRandomUser = async (count = 1) => {
     try {
-      const res = await fetch("https://randomuser.me/api");
+      const res = await fetch(`https://randomuser.me/api/?results=${count}`);
       const data = await res.json();
 
-      console.log(data);
-
-      const newUser = data.results.map((user) => ({
+      const newUsers = data.results.map((user) => ({
         name: `${user.name.first} ${user.name.last}`,
         money: Math.floor(Math.random() * 1000000),
       }));
 
-      setUserData((prevUser) => [...prevUser, newUser]);
+      if (count === 1) {
+        // om vi bara hämtar en användare (från knappen)
+        setUserData((prevUsers) => [...prevUsers, newUsers[0]]);
+      } else {
+        // om vi hämtar flera användare, kan styra antalet
+        setUserData(newUsers);
+      }
     } catch (error) {
-      console.log("error", error);
+      console.error("Error fetching users:", error);
     }
   };
 
@@ -37,13 +41,24 @@ function App() {
     );
   };
 
-  const sortByRichest = () => {
-    setUserData((prevUser) => [...prevUser].sort((a, b) => b.money, a.money));
-  };
+  function sortByRichest() {
+    setUserData((prevUsers) =>
+      [...prevUsers].sort((a, b) => b.money - a.money)
+    );
+  }
 
   const showMillionaires = () => {
     setShowMil(!showMil);
   };
+
+  function calculateWealth() {
+    const wealth = userData.reduce((acc, user) => acc + user.money, 0);
+    setTotalWealth(wealth);
+  }
+
+  const displayedUsers = showMil
+    ? userData.filter((user) => user.money > 1000000)
+    : userData;
 
   function formatMoney(number) {
     return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
@@ -51,29 +66,35 @@ function App() {
 
   return (
     <div className="app">
-      <h1>React Array Methods</h1>
+      <h1>DOM Array Methods</h1>
       <div className="container">
         <aside>
-          <button onClick={fetchRandomUser}>Add User</button>
-          <button onClick={doubleMoney}>Double Money</button>
-          <button>Show Millionaires</button>
-          <button>Sort by Richest</button>
-          <button>Calculate Wealth</button>
+          <button onClick={() => fetchRandomUser(1)}>👤 Add User</button>
+          <button onClick={doubleMoney}>💵 Double Money</button>
+          <button onClick={showMillionaires}>
+            💰 {showMil ? "Show All" : "Show Only Millionaires"}
+          </button>
+          <button onClick={sortByRichest}>⬇️ Sort by Richest</button>
+          <button onClick={calculateWealth}>🧮 Calculate entire Wealth</button>
         </aside>
 
         <main>
           <h2>
             <strong>Person</strong> Wealth
           </h2>
-          {userData.map((user, index) => (
+          {displayedUsers.map((person, index) => (
             <div key={index} className="person">
-              <strong>{user.name}</strong>
+              <strong>{person.name}</strong> {formatMoney(person.money)}
             </div>
           ))}
 
-          <div className="total-wealth">
-            <h3>Total wealth: </h3>
-          </div>
+          {totalWealth !== null && (
+            <div className="total-wealth">
+              <h3>
+                Total wealth: <strong>{formatMoney(totalWealth)}</strong>
+              </h3>
+            </div>
+          )}
         </main>
       </div>
     </div>
